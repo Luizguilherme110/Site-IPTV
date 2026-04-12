@@ -134,18 +134,73 @@
     /* Floating streaming icons */
     .streaming-icon {
       position: absolute;
-      width: 56px;
-      height: 56px;
+      width: 52px;
+      height: 52px;
       border-radius: 14px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-weight: 800;
-      font-size: 11px;
-      letter-spacing: -0.5px;
       color: #fff;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.5);
-      backdrop-filter: blur(10px);
+      box-shadow: 0 8px 30px rgba(0,0,0,0.6), 0 0 15px rgba(0,0,0,0.3);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255,255,255,0.12);
+      overflow: hidden;
+    }
+    .streaming-icon img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* === PRICE COMPARISON === */
+    .comparison-section {
+      position: relative;
+    }
+    .comparison-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 16px;
+      transition: all 0.3s ease;
+    }
+    .comparison-card:hover {
+      border-color: rgba(176,102,255,0.2);
+    }
+    .streaming-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 16px;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+    .streaming-row:last-child {
+      border-bottom: none;
+    }
+    .price-old {
+      text-decoration: line-through;
+      color: #ef4444;
+    }
+    .vs-badge {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #6a11cb, #b066ff);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 900;
+      font-size: 14px;
+      box-shadow: 0 0 30px rgba(176,102,255,0.5);
+      border: 3px solid rgba(255,255,255,0.1);
+      z-index: 2;
+    }
+    .evoland-price-card {
+      background: linear-gradient(135deg, rgba(106,17,203,0.15), rgba(176,102,255,0.08));
+      border: 2px solid rgba(176,102,255,0.3);
+      border-radius: 20px;
+    }
+    .evoland-price-card:hover {
+      border-color: rgba(176,102,255,0.5);
+      box-shadow: 0 0 40px rgba(176,102,255,0.2);
     }
 
     /* Btn gradient */
@@ -309,10 +364,209 @@
       background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
       pointer-events: none;
     }
+
+    /* === SCROLL PROGRESS BAR === */
+    .scroll-progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 3px;
+      width: 0%;
+      background: linear-gradient(90deg, #6a11cb, #b066ff);
+      z-index: 99999;
+      transition: width 0.1s linear;
+      box-shadow: 0 0 8px rgba(176,102,255,0.5);
+    }
+
+    /* === BUTTON RIPPLE === */
+    .btn-gradient, .btn-whatsapp {
+      position: relative;
+      overflow: hidden;
+    }
+    .btn-ripple {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.3);
+      transform: scale(0);
+      animation: rippleAnim 0.6s ease-out forwards;
+      pointer-events: none;
+    }
+    @keyframes rippleAnim {
+      to {
+        transform: scale(4);
+        opacity: 0;
+      }
+    }
+
+    /* === APPLE-STYLE SCROLL ANIMATIONS === */
+    
+    /* Hero Parallax */
+    .hero-parallax {
+      will-change: transform, opacity;
+      transition: none;
+    }
+    
+    /* Scroll-driven reveal (replaces AOS for key elements) */
+    .apple-reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      will-change: transform, opacity;
+      transition: transform 0.08s linear, opacity 0.08s linear;
+    }
+    .apple-reveal.revealed {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Scale-in cards */
+    .apple-scale {
+      opacity: 0;
+      transform: scale(0.88);
+      will-change: transform, opacity;
+      transition: transform 0.08s linear, opacity 0.08s linear;
+    }
+    .apple-scale.revealed {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    /* Text highlight reveal */
+    .text-reveal-line {
+      background-size: 0% 100%;
+      background-repeat: no-repeat;
+      background-image: linear-gradient(90deg, rgba(176,102,255,0.15) 0%, rgba(106,17,203,0.1) 100%);
+      -webkit-background-clip: unset;
+      background-clip: unset;
+      -webkit-text-fill-color: unset;
+      transition: background-size 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+      padding: 0 4px;
+      margin: 0 -4px;
+      border-radius: 4px;
+    }
+    .text-reveal-line.highlighted {
+      background-size: 100% 100%;
+    }
+
+    /* Smooth stagger delay vars */
+    .apple-delay-1 { transition-delay: 0.06s; }
+    .apple-delay-2 { transition-delay: 0.12s; }
+    .apple-delay-3 { transition-delay: 0.18s; }
+    .apple-delay-4 { transition-delay: 0.24s; }
+
+    /* Fade-slide from left/right (Apple-style) */
+    .apple-from-left {
+      opacity: 0;
+      transform: translateX(-60px);
+      will-change: transform, opacity;
+      transition: transform 0.08s linear, opacity 0.08s linear;
+    }
+    .apple-from-left.revealed {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    .apple-from-right {
+      opacity: 0;
+      transform: translateX(60px);
+      will-change: transform, opacity;
+      transition: transform 0.08s linear, opacity 0.08s linear;
+    }
+    .apple-from-right.revealed {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    /* Blur-in effect */
+    .apple-blur {
+      opacity: 0;
+      filter: blur(10px);
+      transform: translateY(20px);
+      will-change: transform, opacity, filter;
+      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+                  opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+                  filter 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .apple-blur.revealed {
+      opacity: 1;
+      filter: blur(0);
+      transform: translateY(0);
+    }
+
+    /* === PRICE PERIOD TABS === */
+    .period-tab {
+      transition: all 0.25s ease;
+      cursor: pointer;
+      user-select: none;
+    }
+    .period-tab.active {
+      background: linear-gradient(135deg, #6a11cb, #b066ff);
+      color: #fff;
+      box-shadow: 0 0 15px rgba(176,102,255,0.4);
+    }
+    .period-tab:not(.active) {
+      background: rgba(255,255,255,0.05);
+      color: #999;
+    }
+    .period-tab:not(.active):hover {
+      background: rgba(255,255,255,0.1);
+      color: #ccc;
+    }
+    .price-saving {
+      background: linear-gradient(135deg, #10b981, #059669);
+      font-size: 10px;
+      padding: 2px 8px;
+      border-radius: 20px;
+      font-weight: 700;
+      color: #fff;
+      white-space: nowrap;
+    }
+
+    /* === ONLINE COUNTER === */
+    .online-counter {
+      animation: counterPulse 2s ease-in-out infinite;
+    }
+    @keyframes counterPulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.7; }
+    }
+
+    /* === TESTIMONIALS === */
+    .testimonial-card {
+      background: linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 20px;
+      padding: 24px;
+      transition: all 0.3s ease;
+    }
+    .testimonial-card:hover {
+      border-color: rgba(176,102,255,0.3);
+      transform: translateY(-4px);
+    }
+    .testimonial-stars {
+      color: #fbbf24;
+    }
+
+    /* === TRUST SECTION === */
+    .trust-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 16px;
+      padding: 24px;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+    .trust-card:hover {
+      border-color: rgba(176,102,255,0.2);
+      background: rgba(255,255,255,0.05);
+    }
+
+
   </style>
 </head>
 
 <body class="gradient-bg noise-overlay">
+
+  <!-- Scroll Progress Bar -->
+  <div class="scroll-progress" id="scrollProgress"></div>
 
   <!-- ========== NAVBAR ========== -->
   <nav class="fixed top-2 left-2 right-2 sm:top-4 sm:left-4 sm:right-4 z-[9999] transition-all duration-500" id="navbar">
@@ -367,7 +621,7 @@
     <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
       <div class="grid lg:grid-cols-2 gap-12 lg:gap-8 items-center">
         <!-- Left Content -->
-        <div class="text-center" data-aos="fade-right" data-aos-duration="1000">
+        <div class="text-center hero-parallax" id="heroText" data-aos="fade-right" data-aos-duration="1000">
           <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black leading-tight tracking-tight mb-6">
             A Melhor Experiência em
             <span class="text-gradient"> Streaming.</span>
@@ -409,36 +663,48 @@
         </div>
 
         <!-- Right - TV Mockup -->
-        <div class="relative px-8 sm:px-10 py-6" data-aos="fade-left" data-aos-duration="1000" data-aos-delay="200">
+        <div class="relative px-8 sm:px-10 py-6 hero-parallax" id="heroTV" data-aos="fade-left" data-aos-duration="1000" data-aos-delay="200">
           <div class="tv-mockup">
             <div class="tv-screen">
-              <!-- Football/Streaming image inside TV -->
+              <!-- TV Carousel Images -->
               <img 
-                src="https://images.unsplash.com/photo-1522778119026-d647f0596c20?w=800&q=80&auto=format" 
-                alt="Futebol ao vivo em alta definição"
-                class="w-full h-full object-cover"
+                src="https://images.unsplash.com/photo-1489944440615-453fc2b6a9a9?w=800&q=85&auto=format" 
+                alt="Futebol ao vivo - Estádio lotado"
+                class="tv-slide w-full h-full object-cover absolute inset-0 opacity-100 transition-opacity duration-1000"
                 loading="eager"
+              />
+              <img 
+                src="https://images.unsplash.com/photo-1616530940355-351fabd9524b?w=800&q=85&auto=format" 
+                alt="Catálogo de filmes em alta definição"
+                class="tv-slide w-full h-full object-cover absolute inset-0 opacity-0 transition-opacity duration-1000"
+                loading="lazy"
+              />
+              <img 
+                src="https://images.unsplash.com/photo-1522869635100-9f4c5e86aa37?w=800&q=85&auto=format" 
+                alt="Catálogo de séries e streamings"
+                class="tv-slide w-full h-full object-cover absolute inset-0 opacity-0 transition-opacity duration-1000"
+                loading="lazy"
               />
               <!-- Dark overlay for contrast -->
               <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/30"></div>
               <!-- Live badge on TV -->
-              <div class="absolute top-4 left-4 flex items-center gap-2 bg-red-600/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold">
+              <div class="absolute top-4 left-4 flex items-center gap-2 bg-red-600/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold tv-badge" data-slides="AO VIVO,FILMES,SÉRIES">
                 <span class="w-2 h-2 bg-white rounded-full animate-pulse"></span>
-                AO VIVO
+                <span class="tv-badge-text">AO VIVO</span>
               </div>
               <!-- Channel count on TV -->
               <div class="absolute bottom-4 left-4 text-sm font-bold">
                 <span class="text-neon-light">+400</span> Canais
               </div>
-              <!-- Sports badge on TV -->
+              <!-- Content badge on TV (changes with carousel) -->
               <div class="absolute bottom-4 right-4 flex items-center gap-1.5 bg-black/70 backdrop-blur-sm border border-white/10 px-3 py-1.5 rounded-full">
-                <span class="text-[10px]">⚽</span>
-                <span class="text-[11px] font-bold text-white">Futebol & Esportes</span>
+                <span class="text-[10px] tv-content-emoji">⚽</span>
+                <span class="text-[11px] font-bold text-white tv-content-text">Futebol & Esportes</span>
               </div>
-              <!-- Top right sports highlight -->
-              <div class="absolute top-4 right-4 flex items-center gap-1.5 bg-green-600/80 backdrop-blur-sm px-2.5 py-1 rounded-full">
-                <span class="text-[10px]">🏆</span>
-                <span class="text-[10px] font-bold text-white">Todos os Campeonatos</span>
+              <!-- Top right highlight (changes with carousel) -->
+              <div class="absolute top-4 right-4 flex items-center gap-1.5 bg-green-600/80 backdrop-blur-sm px-2.5 py-1 rounded-full tv-highlight" data-colors="bg-green-600/80,bg-purple-600/80,bg-blue-600/80">
+                <span class="text-[10px] tv-highlight-emoji">🏆</span>
+                <span class="text-[10px] font-bold text-white tv-highlight-text">Todos os Campeonatos</span>
               </div>
             </div>
             <div class="tv-stand"></div>
@@ -446,17 +712,17 @@
           </div>
 
           <!-- Floating streaming service icons -->
-          <div class="streaming-icon animate-float bg-gradient-to-br from-red-700 to-red-900" style="top: 0; right: 0;">
-            <span>N</span>
+          <div class="streaming-icon animate-float" style="top: -2%; right: -2%; background: #000;">
+            <img src="https://images.justwatch.com/icon/207360008/s100/netflix.webp" alt="Netflix" />
           </div>
-          <div class="streaming-icon animate-float-delay bg-gradient-to-br from-blue-800 to-blue-950" style="top: 25%; left: 0;">
-            <span style="font-size:9px;">Disney+</span>
+          <div class="streaming-icon animate-float-delay" style="top: 22%; left: -4%; background: #0c1a3a;">
+            <img src="https://images.justwatch.com/icon/147638351/s100/disneyplus.webp" alt="Disney+" />
           </div>
-          <div class="streaming-icon animate-float-slow bg-gradient-to-br from-purple-800 to-indigo-950" style="bottom: 15%; right: 0;">
-            <span style="font-size:10px;">HBO</span>
+          <div class="streaming-icon animate-float-slow" style="bottom: 12%; right: -3%; background: #002be7;">
+            <img src="https://images.justwatch.com/icon/305458112/s100/max.webp" alt="Max" />
           </div>
-          <div class="streaming-icon animate-float bg-gradient-to-br from-cyan-700 to-cyan-900" style="bottom: 30%; left: 0;">
-            <span style="font-size:9px;">Prime</span>
+          <div class="streaming-icon animate-float" style="bottom: 28%; left: -4%; background: #1a242f;">
+            <img src="https://images.justwatch.com/icon/52449861/s100/amazonprimevideo.webp" alt="Prime Video" />
           </div>
         </div>
       </div>
@@ -468,7 +734,7 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
         <div data-aos="fade-up" data-aos-delay="0">
-          <div class="text-3xl sm:text-4xl font-black text-gradient">+400</div>
+          <div class="text-3xl sm:text-4xl font-black text-gradient stat-counter" data-count="400" data-prefix="+">+0</div>
           <div class="text-sm text-gray-500 mt-1">Canais ao Vivo</div>
         </div>
         <div data-aos="fade-up" data-aos-delay="100">
@@ -476,11 +742,11 @@
           <div class="text-sm text-gray-500 mt-1">& 4K Disponível</div>
         </div>
         <div data-aos="fade-up" data-aos-delay="200">
-          <div class="text-3xl sm:text-4xl font-black text-gradient">24h</div>
+          <div class="text-3xl sm:text-4xl font-black text-gradient stat-counter" data-count="24" data-suffix="h">0h</div>
           <div class="text-sm text-gray-500 mt-1">Suporte Online</div>
         </div>
         <div data-aos="fade-up" data-aos-delay="300">
-          <div class="text-3xl sm:text-4xl font-black text-gradient">5+</div>
+          <div class="text-3xl sm:text-4xl font-black text-gradient stat-counter" data-count="5" data-prefix="" data-suffix="+">0+</div>
           <div class="text-sm text-gray-500 mt-1">Streamings Inclusos</div>
         </div>
       </div>
@@ -497,19 +763,45 @@
           PLANOS VIP
         </div>
         <h2 class="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight mb-4">
-          Escolha o Seu <span class="text-gradient">Aplicativo</span>
+          Escolha o Seu <span class="text-gradient text-reveal-line">Aplicativo</span>
         </h2>
         <p class="text-gray-400 max-w-2xl mx-auto text-lg">
           Selecione o app ideal para você e faça sua recarga de forma rápida e segura pelo WhatsApp.
         </p>
         <div class="glow-line mx-auto mt-6"></div>
+
+        <!-- Online Counter -->
+        <div class="mt-6 inline-flex items-center gap-2 bg-green-500/10 border border-green-500/20 rounded-full px-4 py-2">
+          <span class="w-2.5 h-2.5 bg-green-400 rounded-full online-counter"></span>
+          <span class="text-sm text-green-300 font-medium">
+            <strong id="onlineCount">47</strong> pessoas estão vendo os planos agora
+          </span>
+        </div>
+      </div>
+
+      <!-- Period Selector Tabs -->
+      <div class="flex justify-center mb-10" data-aos="fade-up" data-aos-delay="50">
+        <div class="inline-flex bg-white/[0.04] border border-white/10 rounded-2xl p-1.5 gap-1 flex-wrap justify-center">
+          <button class="period-tab active rounded-xl px-4 py-2.5 text-sm font-bold" data-period="1mes" onclick="switchPeriod('1mes')">
+            1 Mês
+          </button>
+          <button class="period-tab rounded-xl px-4 py-2.5 text-sm font-bold" data-period="3meses" onclick="switchPeriod('3meses')">
+            3 Meses
+          </button>
+          <button class="period-tab rounded-xl px-4 py-2.5 text-sm font-bold" data-period="6meses" onclick="switchPeriod('6meses')">
+            6 Meses
+          </button>
+          <button class="period-tab rounded-xl px-4 py-2.5 text-sm font-bold relative" data-period="12meses" onclick="switchPeriod('12meses')">
+            12 Meses <span class="price-saving ml-1">-30%</span>
+          </button>
+        </div>
       </div>
 
       <!-- Cards Grid -->
       <div class="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
 
         <!-- Card 1: TVS Exclusive -->
-        <div class="card-3d neon-border rounded-3xl bg-gradient-to-b from-white/[0.06] to-white/[0.02] p-7 relative"
+        <div class="card-3d neon-border rounded-3xl bg-gradient-to-b from-white/[0.06] to-white/[0.02] p-7 relative apple-scale apple-delay-1"
           data-aos="fade-up" data-aos-delay="0" data-aos-duration="800">
           <div class="popular-badge">★ MAIS POPULAR</div>
           <!-- Badges -->
@@ -526,9 +818,17 @@
             <img src="Logos/TVS.webp" alt="TVS Exclusive" class="w-full h-full object-cover" loading="lazy" />
           </div>
           <h3 class="text-2xl font-extrabold mb-2">TVS Exclusive</h3>
-          <p class="text-gray-400 text-sm mb-6 leading-relaxed">
+          <p class="text-gray-400 text-sm mb-4 leading-relaxed">
             O app mais completo do mercado. Canais ao vivo, filmes, séries e todos os streamings em um só lugar.
           </p>
+          <!-- Price Display -->
+          <div class="mb-5">
+            <div class="flex items-end gap-1.5">
+              <span class="text-3xl font-black text-white plan-price" data-prices='{"1mes":"30","3meses":"80","6meses":"140","12meses":"250"}'>R$ 30</span>
+              <span class="text-gray-500 text-sm mb-1 plan-period">/mês</span>
+            </div>
+            <p class="text-xs text-green-400 mt-1 plan-saving hidden">Economia de R$ 110 no ano</p>
+          </div>
           <!-- Features -->
           <ul class="space-y-2.5 mb-8 text-sm">
             <li class="flex items-center gap-2 text-gray-300">
@@ -557,7 +857,7 @@
         </div>
 
         <!-- Card 2: UniTV -->
-        <div class="card-3d neon-border rounded-3xl bg-gradient-to-b from-white/[0.06] to-white/[0.02] p-7 relative"
+        <div class="card-3d neon-border rounded-3xl bg-gradient-to-b from-white/[0.06] to-white/[0.02] p-7 relative apple-scale apple-delay-2"
           data-aos="fade-up" data-aos-delay="150" data-aos-duration="800">
           <!-- Badges -->
           <div class="flex gap-2 mb-5">
@@ -573,9 +873,17 @@
             <img src="Logos/UniTV.png" alt="UniTV" class="w-full h-full object-cover" loading="lazy" />
           </div>
           <h3 class="text-2xl font-extrabold mb-2">UniTV</h3>
-          <p class="text-gray-400 text-sm mb-6 leading-relaxed">
+          <p class="text-gray-400 text-sm mb-4 leading-relaxed">
             App confiável e estável. Interface moderna e fácil de usar com ampla variedade de conteúdo.
           </p>
+          <!-- Price Display -->
+          <div class="mb-5">
+            <div class="flex items-end gap-1.5">
+              <span class="text-3xl font-black text-white plan-price" data-prices='{"1mes":"30","3meses":"80","6meses":"140","12meses":"250"}'>R$ 30</span>
+              <span class="text-gray-500 text-sm mb-1 plan-period">/mês</span>
+            </div>
+            <p class="text-xs text-green-400 mt-1 plan-saving hidden">Economia de R$ 110 no ano</p>
+          </div>
           <!-- Features -->
           <ul class="space-y-2.5 mb-8 text-sm">
             <li class="flex items-center gap-2 text-gray-300">
@@ -604,7 +912,7 @@
         </div>
 
         <!-- Card 3: Xcloud -->
-        <div class="card-3d neon-border rounded-3xl bg-gradient-to-b from-white/[0.06] to-white/[0.02] p-7 relative"
+        <div class="card-3d neon-border rounded-3xl bg-gradient-to-b from-white/[0.06] to-white/[0.02] p-7 relative apple-scale apple-delay-3"
           data-aos="fade-up" data-aos-delay="300" data-aos-duration="800">
           <!-- Badges -->
           <div class="flex gap-2 mb-5">
@@ -620,9 +928,17 @@
             <img src="Logos/Xcloud.png" alt="Xcloud" class="w-full h-full object-cover" loading="lazy" />
           </div>
           <h3 class="text-2xl font-extrabold mb-2">Xcloud</h3>
-          <p class="text-gray-400 text-sm mb-6 leading-relaxed">
+          <p class="text-gray-400 text-sm mb-4 leading-relaxed">
             Tecnologia nativa para Smart TVs. Sem APK, direto da loja oficial da sua televisão.
           </p>
+          <!-- Price Display -->
+          <div class="mb-5">
+            <div class="flex items-end gap-1.5">
+              <span class="text-3xl font-black text-white plan-price" data-prices='{"1mes":"30","3meses":"80","6meses":"140","12meses":"250"}'>R$ 30</span>
+              <span class="text-gray-500 text-sm mb-1 plan-period">/mês</span>
+            </div>
+            <p class="text-xs text-green-400 mt-1 plan-saving hidden">Economia de R$ 110 no ano</p>
+          </div>
           <!-- Features -->
           <ul class="space-y-2.5 mb-4 text-sm">
             <li class="flex items-center gap-2 text-gray-300">
@@ -663,6 +979,285 @@
 
   <div class="section-divider"></div>
 
+  <!-- ========== PRICE COMPARISON SECTION ========== -->
+  <section class="comparison-section relative py-20 sm:py-28 gradient-bg">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <!-- Section Header -->
+      <div class="text-center mb-14" data-aos="fade-up">
+        <div class="inline-flex items-center gap-2 bg-red-500/10 border border-red-500/20 rounded-full px-4 py-1.5 text-xs font-semibold text-red-400 mb-4">
+          <i data-lucide="calculator" class="w-3.5 h-3.5"></i>
+          COMPARATIVO
+        </div>
+        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight mb-4">
+          Quanto Você <span class="text-gradient text-reveal-line">Paga Hoje?</span>
+        </h2>
+        <p class="text-gray-400 max-w-xl mx-auto text-lg">
+          Some o que gasta em streamings separados e veja a diferença.
+        </p>
+      </div>
+
+      <!-- Comparison Layout -->
+      <div class="max-w-3xl mx-auto">
+        <div class="grid md:grid-cols-[1fr,auto,1fr] gap-6 items-center">
+          
+          <!-- Left: Individual Prices -->
+          <div class="comparison-card overflow-hidden apple-from-left" data-aos="fade-right" data-aos-duration="800">
+            <div class="bg-red-500/10 border-b border-red-500/10 px-5 py-3">
+              <h3 class="font-bold text-sm text-red-300 text-center">Assinaturas Separadas</h3>
+            </div>
+            <div class="p-2">
+              <div class="streaming-row">
+                <div class="flex items-center gap-3">
+                  <div class="w-8 h-8 rounded-lg overflow-hidden shrink-0 bg-black">
+                    <img src="https://images.justwatch.com/icon/207360008/s100/netflix.webp" alt="Netflix" class="w-full h-full object-cover" />
+                  </div>
+                  <span class="text-sm text-gray-300">Netflix</span>
+                </div>
+                <span class="text-sm font-bold text-white">R$ 44,90</span>
+              </div>
+              <div class="streaming-row">
+                <div class="flex items-center gap-3">
+                  <div class="w-8 h-8 rounded-lg overflow-hidden shrink-0 bg-[#0c1a3a]">
+                    <img src="https://images.justwatch.com/icon/147638351/s100/disneyplus.webp" alt="Disney+" class="w-full h-full object-cover" />
+                  </div>
+                  <span class="text-sm text-gray-300">Disney+</span>
+                </div>
+                <span class="text-sm font-bold text-white">R$ 33,90</span>
+              </div>
+              <div class="streaming-row">
+                <div class="flex items-center gap-3">
+                  <div class="w-8 h-8 rounded-lg overflow-hidden shrink-0 bg-[#002be7]">
+                    <img src="https://images.justwatch.com/icon/305458112/s100/max.webp" alt="Max" class="w-full h-full object-cover" />
+                  </div>
+                  <span class="text-sm text-gray-300">Max (HBO)</span>
+                </div>
+                <span class="text-sm font-bold text-white">R$ 34,90</span>
+              </div>
+              <div class="streaming-row">
+                <div class="flex items-center gap-3">
+                  <div class="w-8 h-8 rounded-lg overflow-hidden shrink-0 bg-[#1a242f]">
+                    <img src="https://images.justwatch.com/icon/52449861/s100/amazonprimevideo.webp" alt="Prime Video" class="w-full h-full object-cover" />
+                  </div>
+                  <span class="text-sm text-gray-300">Prime Video</span>
+                </div>
+                <span class="text-sm font-bold text-white">R$ 19,90</span>
+              </div>
+              <div class="streaming-row">
+                <div class="flex items-center gap-3">
+                  <div class="w-8 h-8 rounded-lg bg-[#0064ff] flex items-center justify-center shrink-0">
+                    <svg viewBox="0 0 12 12" width="14" height="14"><polygon points="2,1 10,6 2,11" fill="#fff"/></svg>
+                  </div>
+                  <span class="text-sm text-gray-300">Paramount+</span>
+                </div>
+                <span class="text-sm font-bold text-white">R$ 19,90</span>
+              </div>
+              <div class="streaming-row">
+                <div class="flex items-center gap-3">
+                  <div class="w-8 h-8 rounded-lg bg-[#e20025] flex items-center justify-center shrink-0">
+                    <span class="text-white font-black text-[9px] tracking-wider">SKY</span>
+                  </div>
+                  <span class="text-sm text-gray-300">Sky TV</span>
+                </div>
+                <span class="text-sm font-bold text-white">R$ 118,90</span>
+              </div>
+              <!-- Total -->
+              <div class="mt-2 bg-red-500/10 rounded-xl p-4 text-center">
+                <p class="text-xs text-gray-400 mb-1">Total por mês</p>
+                <p class="text-2xl font-black price-old">R$ 272,40</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- VS Badge -->
+          <div class="flex justify-center" data-aos="zoom-in" data-aos-duration="600">
+            <div class="vs-badge">
+              VS
+            </div>
+          </div>
+
+          <!-- Right: Evoland Price -->
+          <div class="evoland-price-card p-7 transition-all apple-from-right" data-aos="fade-left" data-aos-duration="800">
+            <div class="text-center">
+              <img src="Logos/Evoland%20LOGO.png" alt="Evoland" class="h-14 w-auto mx-auto mb-4" loading="lazy" />
+              <h3 class="text-xl font-black mb-2">Evoland</h3>
+              <p class="text-gray-400 text-sm mb-6">Tudo incluso em um só app</p>
+              
+              <div class="mb-6">
+                <p class="text-xs text-gray-500 mb-1">A partir de</p>
+                <p class="text-5xl font-black text-gradient">R$ 30</p>
+                <p class="text-gray-400 text-sm">/mês</p>
+              </div>
+
+              <div class="space-y-2 text-left mb-6">
+                <div class="flex items-center gap-2 text-sm text-gray-300">
+                  <i data-lucide="check-circle-2" class="w-4 h-4 text-green-400 shrink-0"></i>
+                  Netflix, Disney+, Max, Prime...
+                </div>
+                <div class="flex items-center gap-2 text-sm text-gray-300">
+                  <i data-lucide="check-circle-2" class="w-4 h-4 text-green-400 shrink-0"></i>
+                  +400 canais ao vivo
+                </div>
+                <div class="flex items-center gap-2 text-sm text-gray-300">
+                  <i data-lucide="check-circle-2" class="w-4 h-4 text-green-400 shrink-0"></i>
+                  Full HD & 4K
+                </div>
+                <div class="flex items-center gap-2 text-sm text-gray-300">
+                  <i data-lucide="check-circle-2" class="w-4 h-4 text-green-400 shrink-0"></i>
+                  Futebol & esportes ao vivo
+                </div>
+              </div>
+
+              <div class="bg-green-500/10 border border-green-500/20 rounded-xl p-3 mb-5">
+                <p class="text-green-400 font-bold text-sm">Economia de até R$ 242,40/mês</p>
+                <p class="text-green-300/60 text-xs">ou R$ 2.908/ano no seu bolso</p>
+              </div>
+
+              <a href="#planos"
+                class="btn-gradient w-full py-3.5 rounded-xl font-bold text-white flex items-center justify-center gap-2 text-sm">
+                <i data-lucide="zap" class="w-4 h-4"></i>
+                Ver Planos
+              </a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ========== TESTIMONIALS SECTION ========== -->
+  <section class="relative py-20 sm:py-28 gradient-bg">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <!-- Section Header -->
+      <div class="text-center mb-14" data-aos="fade-up">
+        <div class="inline-flex items-center gap-2 bg-neon/10 border border-neon/20 rounded-full px-4 py-1.5 text-xs font-semibold text-neon mb-4">
+          <i data-lucide="star" class="w-3.5 h-3.5"></i>
+          AVALIAÇÕES REAIS
+        </div>
+        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight mb-4">
+          O Que Nossos <span class="text-gradient text-reveal-line">Clientes Dizem</span>
+        </h2>
+        <p class="text-gray-400 max-w-2xl mx-auto text-lg">
+          Milhares de clientes satisfeitos em todo o Brasil.
+        </p>
+      </div>
+
+      <!-- Testimonials Grid -->
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
+        <!-- Testimonial 1 -->
+        <div class="testimonial-card apple-blur apple-delay-1" data-aos="fade-up" data-aos-delay="0">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-11 h-11 rounded-full bg-gradient-to-br from-neon to-deep-purple flex items-center justify-center text-white font-bold text-lg">R</div>
+            <div>
+              <h4 class="font-bold text-sm text-white">Rafael S.</h4>
+              <p class="text-gray-500 text-xs">São Paulo, SP</p>
+            </div>
+          </div>
+          <div class="testimonial-stars text-sm mb-3">★★★★★</div>
+          <p class="text-gray-400 text-sm leading-relaxed">
+            "Incrível! Não trava nada, qualidade de imagem absurda. Assisto todos os jogos do meu time ao vivo sem problema. Melhor custo-benefício que já vi."
+          </p>
+          <p class="text-gray-600 text-xs mt-3">Usando TVS Exclusive há 6 meses</p>
+        </div>
+
+        <!-- Testimonial 2 -->
+        <div class="testimonial-card apple-blur apple-delay-2" data-aos="fade-up" data-aos-delay="100">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-11 h-11 rounded-full bg-gradient-to-br from-emerald-400 to-emerald-700 flex items-center justify-center text-white font-bold text-lg">A</div>
+            <div>
+              <h4 class="font-bold text-sm text-white">Amanda C.</h4>
+              <p class="text-gray-500 text-xs">Belo Horizonte, MG</p>
+            </div>
+          </div>
+          <div class="testimonial-stars text-sm mb-3">★★★★★</div>
+          <p class="text-gray-400 text-sm leading-relaxed">
+            "Cancelei Netflix, Disney e HBO e coloquei tudo num só app. O suporte pelo WhatsApp é super rápido, resolveram tudo em minutos. Super recomendo!"
+          </p>
+          <p class="text-gray-600 text-xs mt-3">Usando UniTV há 4 meses</p>
+        </div>
+
+        <!-- Testimonial 3 -->
+        <div class="testimonial-card apple-blur apple-delay-3" data-aos="fade-up" data-aos-delay="200">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-11 h-11 rounded-full bg-gradient-to-br from-blue-400 to-blue-700 flex items-center justify-center text-white font-bold text-lg">D</div>
+            <div>
+              <h4 class="font-bold text-sm text-white">Diego M.</h4>
+              <p class="text-gray-500 text-xs">Rio de Janeiro, RJ</p>
+            </div>
+          </div>
+          <div class="testimonial-stars text-sm mb-3">★★★★★</div>
+          <p class="text-gray-400 text-sm leading-relaxed">
+            "Instalei o Xcloud direto na minha Samsung e ficou perfeito. Sem complicação, sem APK, funcionou de primeira. A família toda usa e adora!"
+          </p>
+          <p class="text-gray-600 text-xs mt-3">Usando Xcloud há 8 meses</p>
+        </div>
+
+        <!-- Testimonial 4 -->
+        <div class="testimonial-card apple-blur apple-delay-1" data-aos="fade-up" data-aos-delay="50">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-11 h-11 rounded-full bg-gradient-to-br from-orange-400 to-red-600 flex items-center justify-center text-white font-bold text-lg">L</div>
+            <div>
+              <h4 class="font-bold text-sm text-white">Lucas P.</h4>
+              <p class="text-gray-500 text-xs">Curitiba, PR</p>
+            </div>
+          </div>
+          <div class="testimonial-stars text-sm mb-3">★★★★★</div>
+          <p class="text-gray-400 text-sm leading-relaxed">
+            "Economia absurda! Pagava quase R$200 em streaming por mês e agora pago R$30. Qualidade igual ou melhor. Já indiquei pra vários amigos."
+          </p>
+          <p class="text-gray-600 text-xs mt-3">Cliente há 1 ano</p>
+        </div>
+
+        <!-- Testimonial 5 -->
+        <div class="testimonial-card apple-blur apple-delay-2" data-aos="fade-up" data-aos-delay="150">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-11 h-11 rounded-full bg-gradient-to-br from-pink-400 to-purple-600 flex items-center justify-center text-white font-bold text-lg">J</div>
+            <div>
+              <h4 class="font-bold text-sm text-white">Juliana F.</h4>
+              <p class="text-gray-500 text-xs">Salvador, BA</p>
+            </div>
+          </div>
+          <div class="testimonial-stars text-sm mb-3">★★★★★</div>
+          <p class="text-gray-400 text-sm leading-relaxed">
+            "Ativação foi instantânea! Mandei mensagem no WhatsApp e em 5 minutos já estava funcionando. Conteúdo completo, não falta nada."
+          </p>
+          <p class="text-gray-600 text-xs mt-3">Usando TVS Exclusive há 3 meses</p>
+        </div>
+
+        <!-- Testimonial 6 -->
+        <div class="testimonial-card apple-blur apple-delay-3" data-aos="fade-up" data-aos-delay="250">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-11 h-11 rounded-full bg-gradient-to-br from-cyan-400 to-teal-600 flex items-center justify-center text-white font-bold text-lg">C</div>
+            <div>
+              <h4 class="font-bold text-sm text-white">Carlos H.</h4>
+              <p class="text-gray-500 text-xs">Brasília, DF</p>
+            </div>
+          </div>
+          <div class="testimonial-stars text-sm mb-3">★★★★★</div>
+          <p class="text-gray-400 text-sm leading-relaxed">
+            "Testei e aprovei de primeira. Canais ao vivo sem delay, séries com legenda e dublagem. Suporte nota 10. Renovei pro plano anual!"
+          </p>
+          <p class="text-gray-600 text-xs mt-3">Usando UniTV há 1 ano</p>
+        </div>
+      </div>
+
+      <!-- Summary rating -->
+      <div class="mt-12 text-center" data-aos="fade-up">
+        <div class="inline-flex items-center gap-4 bg-white/[0.04] border border-white/10 rounded-2xl px-6 py-4">
+          <div class="text-3xl font-black text-gradient">4.9</div>
+          <div class="text-left">
+            <div class="testimonial-stars text-sm">★★★★★</div>
+            <p class="text-gray-400 text-xs mt-0.5">Baseado em +2.000 avaliações</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
   <!-- ========== INSTALLATION SECTION ========== -->
   <section id="instalacao" class="relative py-20 sm:py-28 gradient-bg">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -673,7 +1268,7 @@
           CENTRAL DE INSTALAÇÃO
         </div>
         <h2 class="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight mb-4">
-          Como <span class="text-gradient">Instalar e Baixar</span>
+          Como <span class="text-gradient text-reveal-line">Instalar e Baixar</span>
         </h2>
         <p class="text-gray-400 max-w-2xl mx-auto text-lg">
           Siga os passos abaixo para instalar o app na sua TV Box ou dispositivo Android.
@@ -845,7 +1440,7 @@
               SMART TV NATIVO
             </div>
             <h2 class="text-3xl sm:text-4xl font-black tracking-tight mb-4">
-              Xcloud: <span class="text-gradient">Sem APK Necessário</span>
+              Xcloud: <span class="text-gradient text-reveal-line">Sem APK Necessário</span>
             </h2>
             <p class="text-gray-400 leading-relaxed mb-6">
               O <strong class="text-white">Xcloud</strong> é diferente dos outros apps. Ele não utiliza APK e não precisa do Downloader. 
@@ -915,7 +1510,7 @@
             DÚVIDAS FREQUENTES
           </div>
           <h2 class="text-3xl sm:text-4xl font-black tracking-tight mb-4">
-            Perguntas <span class="text-gradient">Frequentes</span>
+            Perguntas <span class="text-gradient text-reveal-line">Frequentes</span>
           </h2>
           <div class="glow-line mx-auto mt-6"></div>
         </div>
@@ -981,6 +1576,60 @@
               </p>
             </div>
           </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ========== TRUST / GUARANTEE SECTION ========== -->
+  <section class="relative py-16 sm:py-20 gradient-bg-2">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12" data-aos="fade-up">
+        <h2 class="text-2xl sm:text-3xl font-black tracking-tight mb-3">
+          Por Que Escolher a <span class="text-gradient text-reveal-line">Evoland</span>?
+        </h2>
+        <p class="text-gray-400 max-w-xl mx-auto text-sm">
+          Sua segurança e satisfação são nossa prioridade.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
+        <!-- Trust 1 -->
+        <div class="trust-card" data-aos="fade-up" data-aos-delay="0">
+          <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-green-500/20 to-green-500/5 flex items-center justify-center mx-auto mb-3">
+            <i data-lucide="shield-check" class="w-6 h-6 text-green-400"></i>
+          </div>
+          <h3 class="font-bold text-sm mb-1">Pagamento Seguro</h3>
+          <p class="text-gray-500 text-xs leading-relaxed">PIX com confirmação instantânea</p>
+        </div>
+
+        <!-- Trust 2 -->
+        <div class="trust-card" data-aos="fade-up" data-aos-delay="100">
+          <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-blue-500/20 to-blue-500/5 flex items-center justify-center mx-auto mb-3">
+            <i data-lucide="headphones" class="w-6 h-6 text-blue-400"></i>
+          </div>
+          <h3 class="font-bold text-sm mb-1">Suporte 24 Horas</h3>
+          <p class="text-gray-500 text-xs leading-relaxed">Atendimento humano via WhatsApp</p>
+        </div>
+
+        <!-- Trust 3 -->
+        <div class="trust-card" data-aos="fade-up" data-aos-delay="200">
+          <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-neon/20 to-neon/5 flex items-center justify-center mx-auto mb-3">
+            <i data-lucide="zap" class="w-6 h-6 text-neon"></i>
+          </div>
+          <h3 class="font-bold text-sm mb-1">Ativação Imediata</h3>
+          <p class="text-gray-500 text-xs leading-relaxed">Liberação em até 5 minutos</p>
+        </div>
+
+        <!-- Trust 4 -->
+        <div class="trust-card" data-aos="fade-up" data-aos-delay="300">
+          <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-amber-500/20 to-amber-500/5 flex items-center justify-center mx-auto mb-3">
+            <i data-lucide="users" class="w-6 h-6 text-amber-400"></i>
+          </div>
+          <h3 class="font-bold text-sm mb-1">+2.000 Clientes</h3>
+          <p class="text-gray-500 text-xs leading-relaxed">Avaliação média de 4.9 estrelas</p>
         </div>
       </div>
     </div>
@@ -1130,6 +1779,78 @@
       window.location.href = 'apks/' + filename;
     }
 
+    // === PRICE PERIOD SWITCHER ===
+    const priceData = {
+      '1mes':    { price: '30',  period: '/mês',    saving: '' },
+      '3meses':  { price: '80',  period: '/trimestre', saving: 'Economize R$ 10 no trimestre' },
+      '6meses':  { price: '140', period: '/semestre',  saving: 'Economize R$ 40 no semestre' },
+      '12meses': { price: '250', period: '/ano',       saving: 'Economize R$ 110 no ano' },
+    };
+
+    function switchPeriod(period) {
+      // Update active tab
+      document.querySelectorAll('.period-tab').forEach(tab => {
+        tab.classList.toggle('active', tab.dataset.period === period);
+      });
+      // Update all price displays
+      const data = priceData[period];
+      document.querySelectorAll('.plan-price').forEach(el => {
+        el.textContent = 'R$ ' + data.price;
+      });
+      document.querySelectorAll('.plan-period').forEach(el => {
+        el.textContent = data.period;
+      });
+      document.querySelectorAll('.plan-saving').forEach(el => {
+        if (data.saving) {
+          el.textContent = data.saving;
+          el.classList.remove('hidden');
+        } else {
+          el.classList.add('hidden');
+        }
+      });
+    }
+
+    // === TV CAROUSEL ===
+    (function() {
+      const slides = document.querySelectorAll('.tv-slide');
+      if (slides.length < 2) return;
+      const badgeText = document.querySelector('.tv-badge-text');
+      const contentEmoji = document.querySelector('.tv-content-emoji');
+      const contentText = document.querySelector('.tv-content-text');
+      const highlightEmoji = document.querySelector('.tv-highlight-emoji');
+      const highlightText = document.querySelector('.tv-highlight-text');
+
+      const data = [
+        { badge: 'AO VIVO', emoji: '⚽', content: 'Futebol & Esportes', hEmoji: '🏆', hText: 'Todos os Campeonatos' },
+        { badge: 'FILMES', emoji: '🎬', content: 'Filmes & Lançamentos', hEmoji: '🍿', hText: 'Cinema em Casa' },
+        { badge: 'SÉRIES', emoji: '📺', content: 'Séries & Streamings', hEmoji: '🔥', hText: 'Maratonar Agora' },
+      ];
+
+      let current = 0;
+      setInterval(() => {
+        const next = (current + 1) % slides.length;
+        slides[current].style.opacity = '0';
+        slides[next].style.opacity = '1';
+        if (badgeText) badgeText.textContent = data[next].badge;
+        if (contentEmoji) contentEmoji.textContent = data[next].emoji;
+        if (contentText) contentText.textContent = data[next].content;
+        if (highlightEmoji) highlightEmoji.textContent = data[next].hEmoji;
+        if (highlightText) highlightText.textContent = data[next].hText;
+        current = next;
+      }, 4000);
+    })();
+
+    // === ONLINE COUNTER (realistic fluctuation) ===
+    function updateOnlineCount() {
+      const el = document.getElementById('onlineCount');
+      if (!el) return;
+      const current = parseInt(el.textContent) || 47;
+      const change = Math.floor(Math.random() * 5) - 2; // -2 to +2
+      const newCount = Math.max(28, Math.min(73, current + change));
+      el.textContent = newCount;
+    }
+    setInterval(updateOnlineCount, 4000 + Math.random() * 3000);
+
     // Smooth scroll for anchor links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener('click', function (e) {
@@ -1153,6 +1874,128 @@
         }
       });
     });
+
+    // === SCROLL PROGRESS BAR ===
+    const scrollProgress = document.getElementById('scrollProgress');
+    if (scrollProgress) {
+      window.addEventListener('scroll', () => {
+        const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+        const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        const progress = scrollHeight > 0 ? (scrollTop / scrollHeight) * 100 : 0;
+        scrollProgress.style.width = progress + '%';
+      }, { passive: true });
+    }
+
+    // === BUTTON RIPPLE EFFECT ===
+    document.querySelectorAll('.btn-gradient, .btn-whatsapp').forEach(btn => {
+      btn.addEventListener('click', function(e) {
+        const ripple = document.createElement('span');
+        ripple.classList.add('btn-ripple');
+        const rect = this.getBoundingClientRect();
+        const size = Math.max(rect.width, rect.height);
+        ripple.style.width = ripple.style.height = size + 'px';
+        ripple.style.left = (e.clientX - rect.left - size / 2) + 'px';
+        ripple.style.top = (e.clientY - rect.top - size / 2) + 'px';
+        this.appendChild(ripple);
+        ripple.addEventListener('animationend', () => ripple.remove());
+      });
+    });
+
+    // === ANIMATED STAT COUNTERS ===
+    const counters = document.querySelectorAll('.stat-counter');
+    if (counters.length) {
+      const animateCounter = (el) => {
+        const target = parseInt(el.dataset.count, 10);
+        const prefix = el.dataset.prefix || '';
+        const suffix = el.dataset.suffix || '';
+        const duration = 1500;
+        const start = performance.now();
+        const step = (now) => {
+          const elapsed = now - start;
+          const progress = Math.min(elapsed / duration, 1);
+          const eased = 1 - Math.pow(1 - progress, 3);
+          const current = Math.round(eased * target);
+          el.textContent = prefix + current + suffix;
+          if (progress < 1) requestAnimationFrame(step);
+        };
+        requestAnimationFrame(step);
+      };
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            animateCounter(entry.target);
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.5 });
+      counters.forEach(c => observer.observe(c));
+    }
+
+    // === APPLE-STYLE SCROLL-LINKED ANIMATIONS ===
+    (function() {
+      const heroText = document.getElementById('heroText');
+      const heroTV = document.getElementById('heroTV');
+
+      // 1. HERO PARALLAX — content fades and shifts on scroll
+      if (heroText || heroTV) {
+        let ticking = false;
+        window.addEventListener('scroll', () => {
+          if (!ticking) {
+            requestAnimationFrame(() => {
+              const scrollY = window.pageYOffset;
+              const heroHeight = window.innerHeight;
+              const progress = Math.min(scrollY / (heroHeight * 0.6), 1);
+
+              if (heroText) {
+                heroText.style.opacity = 1 - progress;
+                heroText.style.transform = 'translateY(' + (progress * -50) + 'px)';
+              }
+              if (heroTV) {
+                heroTV.style.opacity = 1 - progress * 0.8;
+                heroTV.style.transform = 'scale(' + (1 + progress * 0.05) + ') translateY(' + (progress * -30) + 'px)';
+              }
+              ticking = false;
+            });
+            ticking = true;
+          }
+        }, { passive: true });
+      }
+
+      // 2. SCROLL-DRIVEN REVEAL — elements animate proportionally to scroll position
+      const revealElements = document.querySelectorAll('.apple-reveal, .apple-scale, .apple-from-left, .apple-from-right, .apple-blur');
+      if (revealElements.length) {
+        const revealObserver = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('revealed');
+              revealObserver.unobserve(entry.target);
+            }
+          });
+        }, {
+          threshold: 0.15,
+          rootMargin: '0px 0px -60px 0px'
+        });
+        revealElements.forEach(el => revealObserver.observe(el));
+      }
+
+      // 3. TEXT HIGHLIGHT REVEAL — gradient sweeps across headings
+      const textReveals = document.querySelectorAll('.text-reveal-line');
+      if (textReveals.length) {
+        const textObserver = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('highlighted');
+              textObserver.unobserve(entry.target);
+            }
+          });
+        }, {
+          threshold: 0.5,
+          rootMargin: '0px 0px -40px 0px'
+        });
+        textReveals.forEach(el => textObserver.observe(el));
+      }
+
+    })();
   </script>
 </body>
 </html>
